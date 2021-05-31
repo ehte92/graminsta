@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { fetchUser } from "../redux/actions";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+//import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Feed from "./main/Feed";
 import Profile from "./main/Profile";
 
-const Tab = createBottomTabNavigator();
+//const Tab = createBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator();
 const Empty = () => {
   return null;
 };
@@ -17,7 +19,7 @@ export class Main extends Component {
   }
   render() {
     return (
-      <Tab.Navigator>
+      <Tab.Navigator initialRouteName="Feed" labeled={false}>
         <Tab.Screen
           name="Feed"
           component={Feed}
@@ -28,7 +30,7 @@ export class Main extends Component {
           }}
         />
         <Tab.Screen
-          name="MainAdd"
+          name="AddContainer"
           component={Empty}
           listeners={({ navigation }) => ({
             tabPress: (event) => {
