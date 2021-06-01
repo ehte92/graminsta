@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Button, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import { Camera } from "expo-camera";
 import * as ImagePicker from "expo-image-picker";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function App() {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
@@ -36,8 +44,6 @@ export default function App() {
       quality: 1,
     });
 
-    console.log(result);
-
     if (!result.cancelled) {
       setImage(result.uri);
     }
@@ -59,21 +65,100 @@ export default function App() {
           style={styles.fixedRatio}
           type={type}
           ratio={"1:1"}
-        />
+        >
+          {/* <View
+            style={{
+              flex: 1,
+              backgroundColor: "transparent",
+              flexDirection: "row",
+              margin: 20,
+            }}
+          >
+            <TouchableOpacity
+              style={{
+                flex: 0.1,
+                flexDirection: "row",
+                alignSelf: "flex-end",
+                alignItems: "center",
+              }}
+            >
+              <Icon.Button name="atom-variant" backgroundColor="transparent" />
+              <Icon.Button
+                name="circle-outline"
+                backgroundColor="transparent"
+                size={64}
+              />
+              <Icon.Button name="image" backgroundColor="transparent" />
+            </TouchableOpacity>
+          </View> */}
+        </Camera>
       </View>
-      <Button
-        style={{ flex: 0.1, alignSelf: "flex-end", alignItems: "center" }}
-        title="Flip"
-        onPress={() => {
-          setType(
-            type === Camera.Constants.Type.back
-              ? Camera.Constants.Type.front
-              : Camera.Constants.Type.back
-          );
+      {/* <View
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          padding: 15,
+          justifyContent: "space-between",
         }}
-      ></Button>
-      <Button title="Snap" onPress={() => takePicture()} />
-      <Button title="Pick Image from Gallery" onPress={() => pickImage()} />
+      >
+        <Button
+          style={{ flex: 0.1, alignSelf: "flex-end", alignItems: "center" }}
+          title="Flip"
+          onPress={() => {
+            setType(
+              type === Camera.Constants.Type.back
+                ? Camera.Constants.Type.front
+                : Camera.Constants.Type.back
+            );
+          }}
+        ></Button>
+        <Button title="Snap" onPress={() => takePicture()} />
+        <Button title="Pick Image from Gallery" onPress={() => pickImage()} />
+      </View> */}
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          justifyContent: "space-between",
+          margin: 20,
+        }}
+      >
+        <TouchableOpacity
+          style={{
+            alignSelf: "flex-end",
+            alignItems: "center",
+            backgroundColor: "transparent",
+          }}
+        >
+          <Icon.Button
+            name="atom-variant"
+            backgroundColor="transparent"
+            size={40}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            alignSelf: "flex-end",
+            alignItems: "center",
+            backgroundColor: "transparent",
+          }}
+        >
+          <Icon.Button
+            name="circle-outline"
+            backgroundColor="transparent"
+            size={64}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            alignSelf: "flex-end",
+            alignItems: "center",
+            backgroundColor: "transparent",
+          }}
+        >
+          <Icon.Button name="image" backgroundColor="transparent" size={40} />
+        </TouchableOpacity>
+      </View>
       {image && <Image source={{ uri: image }} style={{ flex: 1 }} />}
     </View>
   );
