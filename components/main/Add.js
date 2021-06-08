@@ -11,7 +11,7 @@ import { Camera } from "expo-camera";
 import * as ImagePicker from "expo-image-picker";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
-export default function App() {
+export default function Add({navigation}) {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [hasGalleryPermission, setHasGalleryPermission] = useState(null);
   const [camera, setCamera] = useState(null);
@@ -65,56 +65,8 @@ export default function App() {
           style={styles.fixedRatio}
           type={type}
           ratio={"1:1"}
-        >
-          {/* <View
-            style={{
-              flex: 1,
-              backgroundColor: "transparent",
-              flexDirection: "row",
-              margin: 20,
-            }}
-          >
-            <TouchableOpacity
-              style={{
-                flex: 0.1,
-                flexDirection: "row",
-                alignSelf: "flex-end",
-                alignItems: "center",
-              }}
-            >
-              <Icon.Button name="atom-variant" backgroundColor="transparent" />
-              <Icon.Button
-                name="circle-outline"
-                backgroundColor="transparent"
-                size={64}
-              />
-              <Icon.Button name="image" backgroundColor="transparent" />
-            </TouchableOpacity>
-          </View> */}
-        </Camera>
+        ></Camera>
       </View>
-      {/* <View
-        style={{
-          flex: 1,
-          flexDirection: "row",
-          padding: 15,
-          justifyContent: "space-between",
-        }}
-      >
-        <Button
-          style={{ flex: 0.1, alignSelf: "flex-end", alignItems: "center" }}
-          title="Flip"
-          onPress={() => {
-            setType(
-              type === Camera.Constants.Type.back
-                ? Camera.Constants.Type.front
-                : Camera.Constants.Type.back
-            );
-          }}
-        ></Button>
-        <Button title="Snap" onPress={() => takePicture()} />
-        <Button title="Pick Image from Gallery" onPress={() => pickImage()} />
-      </View> */}
       <View
         style={{
           flex: 1,
@@ -134,6 +86,13 @@ export default function App() {
             name="atom-variant"
             backgroundColor="transparent"
             size={40}
+            onPress={() => {
+              setType(
+                type === Camera.Constants.Type.back
+                  ? Camera.Constants.Type.front
+                  : Camera.Constants.Type.back
+              );
+            }}
           />
         </TouchableOpacity>
         <TouchableOpacity
@@ -147,6 +106,7 @@ export default function App() {
             name="circle-outline"
             backgroundColor="transparent"
             size={64}
+            onPress={() => takePicture()}
           />
         </TouchableOpacity>
         <TouchableOpacity
@@ -156,7 +116,26 @@ export default function App() {
             backgroundColor: "transparent",
           }}
         >
-          <Icon.Button name="image" backgroundColor="transparent" size={40} />
+          <Icon.Button
+            name="image"
+            backgroundColor="transparent"
+            size={40}
+            onPress={() => pickImage()}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            alignSelf: "flex-end",
+            alignItems: "center",
+            backgroundColor: "transparent",
+          }}
+        >
+          <Icon.Button
+            name="forward"
+            backgroundColor="transparent"
+            size={20}
+            onPress={() => navigation.navigate("Save", { image })}
+          />
         </TouchableOpacity>
       </View>
       {image && <Image source={{ uri: image }} style={{ flex: 1 }} />}
