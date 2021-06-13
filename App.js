@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import rootReducer from "./redux/reducers";
 import thunk from "redux-thunk";
+import { Provider as PaperProvider } from "react-native-paper";
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -85,25 +86,27 @@ export class App extends Component {
     }
     return (
       <Provider store={store}>
-        <NavigationContainer>
-          <Stack.Navigator initialRouteName="Main">
-            <Stack.Screen
-              name="Main"
-              component={Main}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Add"
-              component={Add}
-              navigation={this.props.navigation}
-            />
-            <Stack.Screen
-              name="Save"
-              component={Save}
-              navigation={this.props.navigation}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
+        <PaperProvider>
+          <NavigationContainer>
+            <Stack.Navigator initialRouteName="Main">
+              <Stack.Screen
+                name="Main"
+                component={Main}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Add"
+                component={Add}
+                navigation={this.props.navigation}
+              />
+              <Stack.Screen
+                name="Save"
+                component={Save}
+                navigation={this.props.navigation}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </PaperProvider>
       </Provider>
     );
   }
