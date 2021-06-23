@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { fetchUser, fetchUserPosts } from "../redux/actions";
+import {
+  fetchUser,
+  fetchUserPosts,
+  fetchUserFollowing,
+} from "../redux/actions";
 import firebase from "firebase";
 //import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
@@ -19,6 +23,7 @@ export class Main extends Component {
   componentDidMount() {
     this.props.fetchUser();
     this.props.fetchUserPosts();
+    this.props.fetchUserFollowing();
   }
   render() {
     return (
@@ -92,6 +97,9 @@ const mapStateToProps = (store) => ({
 });
 
 const mapDispatchProps = (dispatch) =>
-  bindActionCreators({ fetchUser, fetchUserPosts }, dispatch);
+  bindActionCreators(
+    { fetchUser, fetchUserPosts, fetchUserFollowing },
+    dispatch
+  );
 
 export default connect(mapStateToProps, mapDispatchProps)(Main);

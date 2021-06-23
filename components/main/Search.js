@@ -15,9 +15,8 @@ require("firebase/firestore");
 export default function Search(props) {
   const [users, setUser] = useState([]);
   const fetchUsers = (search) => {
-    firebase
-      .firestore()
-      .collection("users")
+    let db = firebase.firestore();
+    db.collection("users")
       .where("name", ">=", search)
       .get()
       .then((snapshot) => {
